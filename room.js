@@ -1,9 +1,14 @@
 'use strict'
 const request = require('request-promise');
-const option = {
-    uri:
+const options = {
+    uri: 'https://hacker-chatroom.herokuapp.com/rooms',
+    method: 'GET'
 }
 
-
-module.exports = () => {
+module.exports = new Promise((resolve, reject) => {
+    request(options).then((data) => {
+        resolve(JSON.parse(data))
+    }).catch((err) => {
+        reject(err)
+    })
 }

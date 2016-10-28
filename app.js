@@ -1,6 +1,7 @@
 'use strict'
 
-const io = require("socket.io-client")
+const io = require('socket.io-client')
+const rooms = require('./rooms.js')
 console.log('booting up HackerRoom-Client')
 
 const socket = io.connect('http://localhost:3030/')
