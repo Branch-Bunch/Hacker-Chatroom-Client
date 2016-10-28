@@ -1,0 +1,23 @@
+{
+  "name": "Hacker-Chatroom-Client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hacker-Chatroom/Hacker-Chatroom-Client.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hacker-Chatroom/Hacker-Chatroom-Client/issues"
+  },
+  "homepage": "https://github.com/Hacker-Chatroom/Hacker-Chatroom-Client#readme",
+  "dependencies": {
+    "socket.io-client": "^1.5.1"
+  }
+}
