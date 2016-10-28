@@ -1,3 +1,5 @@
+'use strict'
+
 const io = require("socket.io-client")
 console.log('booting up HackerRoom-Client')
 
