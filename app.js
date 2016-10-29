@@ -58,7 +58,7 @@ function setName() {
 
 function sendMessage() {
 	rl.question("What do u wana send ", (answer) => {
-		if(answer == "quit"){
+		if(answer === "quit"){
 			rl.close
             process.exit()
 		}
