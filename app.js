@@ -19,8 +19,6 @@ let rl = readline.createInterface({
 socket.on('connect', (data) => {
     socket.emit('create', 'room1')
     console.log('Connected to Server')
-    setName()
-    // sendMessage() is called in setName
     rooms.getRooms.then((data) => {
         console.log(Object.keys(data));
     }).catch((err) => {
@@ -32,9 +30,9 @@ socket.on('invalid', (error) => {
     console.log('error', error)
 })
 
-socket.on('test', (data) => {
-    console.log('Recieved in test: ', data)
-})
+//socket.on('test', (data) => {
+//    console.log('Recieved in test: ', data)
+//})
 
 socket.on('general', (data) => {
     const date = new Date(data.date)
@@ -49,15 +47,24 @@ socket.on('general', (data) => {
     }
 })
 
-function setName() {
-    rl.question("What should your username be? ", (uname) => {
+socket.on('setname', () => {
+    rl.question("Enter username: ", (uname) => {
         username = uname
+        rl.close
+        sendMessage()
+    })
+})
+
+function setName() {
+    rl.question("Enter username: ", (uname) => {
+        username = uname
+        rl.close
         sendMessage()
     })
 }
 
 function sendMessage() {
-	rl.question("What do u wana send ", (answer) => {
+	rl.question("_:", (answer) => {
 		if(answer === "quit"){
 			rl.close
             process.exit()
