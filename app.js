@@ -8,6 +8,7 @@ const rooms = require('./rooms.js')
 //const socket = io.connect('https://hacker-chatroom.herokuapp.com')
 const socket = io.connect('http://localhost:3030')
 
+
 let rl = readline.createInterface({
 input: process.stdin,
 output: process.stdout
@@ -36,8 +37,13 @@ socket.on('general', (data) => {
     const date = new Date(data.date)
     const hour = date.getHours()
     const min = date.getMinutes()
+      if (min < 10) {
+        console.log(`${hour}:0${min} - ${data.name}`)
+        console.log(`- ${data.message}`)
+      }else {
     console.log(`${hour}:${min} - ${data.name}`)
     console.log(`- ${data.message}`)
+<<<<<<< HEAD
 })
 
 function sendMessage(){
@@ -45,8 +51,12 @@ function sendMessage(){
 		socket.emit('general', {
 			name: 'Admin',
 			date: new Date(),
-			message: answer 
+			message: answer
    		})
 	})
  	rl.close
 }
+=======
+  }
+})
+>>>>>>> fixed time
