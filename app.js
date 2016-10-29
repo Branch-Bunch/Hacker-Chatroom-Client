@@ -10,11 +10,17 @@ const socket = io.connect('https://hacker-chatroom.herokuapp.com')
 
 
 socket.on('connect', (data) => {
+    socket.emit('create', 'room1')
     console.log('Connected to Server')
     socket.emit('general', {
         name: 'Admin',
         date: new Date(),
         message: 'TEST TEST TEST'
+    })
+    rooms.getRooms.then((data) => {
+        console.log(Object.keys(data));
+    }).catch((err) => {
+        console.log(err);
     })
 })
 
