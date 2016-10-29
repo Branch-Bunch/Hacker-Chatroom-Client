@@ -3,10 +3,9 @@
 const io = require("socket.io-client")
 const readline = require("readline")
 const rooms = require('./rooms.js')
-
 // For local testing: http:localhost:3030
-const socket = io.connect('https://hacker-chatroom.herokuapp.com')
-// const socket = io.connect('http://localhost:3030')
+ const socket = io.connect('https://hacker-chatroom.herokuapp.com')
+ //const socket = io.connect('http://localhost:3030')
 
 
 let rl = readline.createInterface({
@@ -38,10 +37,10 @@ socket.on('general', (data) => {
     const hour = date.getHours()
     const min = date.getMinutes()
       if (min < 10) {
-        console.log(`${hour}:0${min} - ${data.name}`)
+        console.log(Cyan,`${hour}:0${min} -`, BgYellow,` ${data.name}`)
         console.log(`- ${data.message}`)
       } else {
-    console.log(`${hour}:${min} - ${data.name}`)
+    console.log(Cyan,`${hour}:${min} -`, BgYellow, ` ${data.name}`)
     console.log(`- ${data.message}`)
     }
 })
@@ -56,3 +55,7 @@ function sendMessage(){
 	})
  	rl.close
 }
+
+
+var Cyan = "\x1b[36m%s\x1b[0m"
+var BgYellow = "\x1b[43m%s\x1b[0m "
