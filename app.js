@@ -53,7 +53,7 @@ function setName() {
 }
 
 function sendMessage(){
-	rl.question("What do u wana send ", (answer) => {
+	rl.question(">", (answer) => {
 		if(answer == "quit"){
 			rl.close
 		}
