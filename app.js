@@ -7,6 +7,7 @@ const rooms = require('./rooms.js')
 let username = "anonymous"
 // For local testing: http:localhost:3030
 const socket = io.connect('https://hacker-chatroom.herokuapp.com')
+// const socket = io.connect('http://localhost:3030')
 
 let rl = readline.createInterface({
     input: process.stdin,
@@ -52,7 +53,7 @@ function setName() {
     rl.close
 }
 
-function sendMessage(){
+function sendMessage() {
 	rl.question("What do u wana send ", (answer) => {
 		if(answer == "quit"){
 			rl.close
