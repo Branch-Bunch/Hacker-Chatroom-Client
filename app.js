@@ -40,10 +40,10 @@ socket.on('general', (data) => {
       if (min < 10) {
         console.log(`${hour}:0${min} - ${data.name}`)
         console.log(`- ${data.message}`)
-      }else {
+      } else {
     console.log(`${hour}:${min} - ${data.name}`)
     console.log(`- ${data.message}`)
-<<<<<<< HEAD
+    }
 })
 
 function sendMessage(){
@@ -56,7 +56,3 @@ function sendMessage(){
 	})
  	rl.close
 }
-=======
-  }
-})
->>>>>>> fixed time
