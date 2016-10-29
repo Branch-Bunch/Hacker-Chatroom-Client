@@ -1,12 +1,12 @@
 'use strict'
 
-const io = require("socket.io-client")
-const readline = require("readline")
+const io = require('socket.io-client')
+const readline = require('readline')
 const rooms = require('./rooms.js')
 const local = 'http://localhost:3030'
 const heroku = 'https://hacker-chatroom.herokuapp.com'
 
-let username = "anonymous"
+let username = 'anonymous'
 // For local testing: http:localhost:3030
 const socket = io.connect(local)
 // const socket = io.connect('http://localhost:3030')
@@ -47,16 +47,16 @@ socket.on('general', (data) => {
     }
 })
 
-socket.on('setname', () => {
-    rl.question("Enter username: ", (uname) => {
-        username = uname
-        rl.close
-        sendMessage()
-    })
+socket.on('setname', (data) => {
+    setName()
+})
+
+socket.on('sendmessage', (date) => {
+    sendMessage()   
 })
 
 function setName() {
-    rl.question("Enter username: ", (uname) => {
+    rl.question('Enter username: ', (uname) => {
         username = uname
         rl.close
         sendMessage()
@@ -64,8 +64,9 @@ function setName() {
 }
 
 function sendMessage() {
-	rl.question(">", (answer) => {
-		if(answer === "quit"){
+    //console.log('>')
+    rl.question('>', (answer) => {
+		if(answer === 'quit'){
 			rl.close
             process.exit()
 		}
@@ -74,6 +75,7 @@ function sendMessage() {
 			date: new Date(),
 			message: answer
    		})
+        rl.close
 		sendMessage()
 	})
 }
