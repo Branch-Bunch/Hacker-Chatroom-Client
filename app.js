@@ -5,13 +5,13 @@ const readline = require("readline")
 const rooms = require('./rooms.js')
 
 // For local testing: http:localhost:3030
-//const socket = io.connect('https://hacker-chatroom.herokuapp.com')
-const socket = io.connect('http://localhost:3030')
+const socket = io.connect('https://hacker-chatroom.herokuapp.com')
+// const socket = io.connect('http://localhost:3030')
 
 
 let rl = readline.createInterface({
-input: process.stdin,
-output: process.stdout
+    input: process.stdin,
+    output: process.stdout
 });
 
 socket.on('connect', (data) => {
