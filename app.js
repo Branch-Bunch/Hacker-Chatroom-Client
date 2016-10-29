@@ -64,7 +64,7 @@ function setName() {
 }
 
 function sendMessage() {
-	rl.question("_:", (answer) => {
+	rl.question(">", (answer) => {
 		if(answer === "quit"){
 			rl.close
             process.exit()
