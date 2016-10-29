@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/Hacker-Chatroom/Hacker-Chatroom-Client#readme",
   "dependencies": {
+    "request": "^2.76.0",
+    "request-promise": "^4.1.1",
     "socket.io-client": "^1.5.1"
   }
 }
