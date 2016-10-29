@@ -4,6 +4,7 @@ const io = require("socket.io-client")
 const readline = require("readline")
 const rooms = require('./rooms.js')
 
+let username = "anonymous"
 // For local testing: http:localhost:3030
 //const socket = io.connect('https://hacker-chatroom.herokuapp.com')
 const socket = io.connect('http://localhost:3030')
@@ -40,10 +41,17 @@ socket.on('general', (data) => {
     console.log(`- ${data.message}`)
 })
 
+function setName() {
+    rl.question("What should your username be? ", (uname) => {
+        username = uname
+    })
+    rl.close
+}
+
 function sendMessage(){
 	rl.question("What do u wana send ", (answer) => {
 		socket.emit('general', {
-			name: 'Admin',
+			name: username,
 			date: new Date(),
 			message: answer 
    		})
