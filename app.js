@@ -8,7 +8,7 @@ const heroku = 'https://hacker-chatroom.herokuapp.com'
 
 let username = "anonymous"
 // For local testing: http:localhost:3030
-const socket = io.connect(heroku)
+const socket = io.connect(local)
 // const socket = io.connect('http://localhost:3030')
 
 let rl = readline.createInterface({
@@ -17,9 +17,9 @@ let rl = readline.createInterface({
 });
 
 socket.on('connect', (data) => {
-    setName()
     socket.emit('create', 'room1')
     console.log('Connected to Server')
+    //setName()
     sendMessage()
     rooms.getRooms.then((data) => {
         console.log(Object.keys(data));
@@ -60,6 +60,7 @@ function sendMessage() {
 	rl.question("What do u wana send ", (answer) => {
 		if(answer == "quit"){
 			rl.close
+            process.exit()
 		}
 		socket.emit('general', {
 			name: username,
