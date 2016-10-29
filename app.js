@@ -5,8 +5,8 @@ const readline = require("readline")
 const rooms = require('./rooms.js')
 
 // For local testing: http:localhost:3030
-//const socket = io.connect('https://hacker-chatroom.herokuapp.com')
-const socket = io.connect('http://localhost:3030')
+const socket = io.connect('https://hacker-chatroom.herokuapp.com')
+//const socket = io.connect('http://localhost:3030')
 
 let rl = readline.createInterface({
 input: process.stdin,
@@ -42,11 +42,14 @@ socket.on('general', (data) => {
 
 function sendMessage(){
 	rl.question("What do u wana send ", (answer) => {
+		if(answer == "quit"){
+			rl.close
+		}
 		socket.emit('general', {
 			name: 'Admin',
 			date: new Date(),
 			message: answer 
    		})
+		sendMessage()
 	})
- 	rl.close
 }
