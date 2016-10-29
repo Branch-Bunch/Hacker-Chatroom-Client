@@ -30,8 +30,8 @@ function sendMessage(){
 		socket.emit('general', {
 			name: 'Admin',
 			date: new Date(),
-			message: ${answer} 
+			message: answer 
    		})
-	}
- 	rl.close;
+	})
+ 	rl.close
 }
