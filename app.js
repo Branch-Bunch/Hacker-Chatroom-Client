@@ -19,8 +19,8 @@ let rl = readline.createInterface({
 socket.on('connect', (data) => {
     socket.emit('create', 'room1')
     console.log('Connected to Server')
-    //setName()
-    sendMessage()
+    setName()
+    // sendMessage() is called in setName
     rooms.getRooms.then((data) => {
         console.log(Object.keys(data));
     }).catch((err) => {
@@ -52,8 +52,8 @@ socket.on('general', (data) => {
 function setName() {
     rl.question("What should your username be? ", (uname) => {
         username = uname
+        sendMessage()
     })
-    rl.close
 }
 
 function sendMessage() {
