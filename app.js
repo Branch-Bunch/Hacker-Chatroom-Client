@@ -19,11 +19,8 @@ let rl = readline.createInterface({
 socket.on('connect', (data) => {
     socket.emit('create', 'room1')
     console.log('Connected to Server')
-    rooms.getRooms.then((data) => {
-        console.log(Object.keys(data));
-    }).catch((err) => {
-        console.log(err);
-    })
+    sendMessage()
+    getRooms()
 })
 
 socket.on('invalid', (error) => {
@@ -63,6 +60,13 @@ function setName() {
     })
 }
 
+function setName() {
+    rl.question("What room to join?", (room) => {
+        socket.emit('create', room)
+    })
+    rl.close
+}
+
 function sendMessage() {
     //console.log('>')
     rl.question('>', (answer) => {
@@ -83,3 +87,11 @@ function sendMessage() {
 
 var Cyan = "\x1b[36m%s\x1b[0m"
 var BgYellow = "\x1b[43m%s\x1b[0m "
+function getRooms() {
+    rooms.getRooms.then((data) => {
+        console.log('Available Rooms: ')
+        console.log(Object.keys(data));
+    }).catch((err) => {
+        console.log(err);
+    })
+}
