@@ -5,7 +5,7 @@ const options = {
     method: 'GET'
 }
 
-module.exports = new Promise((resolve, reject) => {
+module.exports.getRooms = new Promise((resolve, reject) => {
     request(options).then((data) => {
         resolve(JSON.parse(data))
     }).catch((err) => {

@@ -13,9 +13,15 @@ input: process.stdin,
 output: process.stdout
 });
 
-socket.on('connect', function(data) {
-    console.log('connected')
-	sendMessage()
+socket.on('connect', (data) => {
+    socket.emit('create', 'room1')
+    console.log('Connected to Server')
+    sendMessage()
+    rooms.getRooms.then((data) => {
+        console.log(Object.keys(data));
+    }).catch((err) => {
+        console.log(err);
+    })
 })
 
 socket.on('invalid', (error) => {
