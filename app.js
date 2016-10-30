@@ -5,6 +5,7 @@ const readline = require('readline')
 const rooms = require('./rooms.js')
 const local = 'http://localhost:3030'
 const heroku = 'https://hacker-chatroom.herokuapp.com'
+const colors = require('./color.js')
 
 let username = 'anonymous'
 // For local testing: http:localhost:3030
@@ -39,12 +40,11 @@ socket.on('general', (data) => {
     const hour = date.getHours()
     const min = date.getMinutes()
       if (min < 10) {
-        console.log(Cyan,`${hour}:0${min} -`, BgYellow,` ${data.name}`)
-        console.log(`- ${data.message}`)
+        console.log(colors.Cyan,`${hour}:0${min} -`, colors.YellowBgBlackLt,` ${data.name}`)
       } else {
-    console.log(Cyan,`${hour}:${min} -`, BgYellow, ` ${data.name}`)
-    console.log(`- ${data.message}`)
+        console.log(colors.Cyan,`${hour}:${min} -`, colors.YellowBgBlackLt, ` ${data.name}`)
     }
+    console.log(`- ${data.message}`)
 })
 
 socket.on('setname', (data) => {
@@ -79,7 +79,3 @@ function sendMessage() {
 		sendMessage()
 	})
 }
-
-
-var Cyan = "\x1b[36m%s\x1b[0m"
-var BgYellow = "\x1b[43m%s\x1b[0m "
