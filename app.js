@@ -26,7 +26,7 @@ socket.on('connect', (data) => {
     // TODO: Select room or create room
     Input.sendMessage(socket)
     }).catch((err) => {
-        console.error('Error getting rooms', err)
+        console.log('Error getting rooms', err)
     })
 })
 
