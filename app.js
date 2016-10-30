@@ -12,6 +12,8 @@ const heroku = 'https://hacker-chatroom.herokuapp.com'
 const socket = io.connect(local)
 // const socket = io.connect('http://localhost:3030')
 
+// TODO: Enter username
+
 socket.on('connect', (data) => {
     console.log('Connected to Server')
     Rooms.getRooms(socket).then((chatRooms) => {
@@ -21,6 +23,7 @@ socket.on('connect', (data) => {
             console.log(`Joined ${chatRooms[0]}`)
             socket.emit('create', chatRooms[0])
         }
+    // TODO: Select room or create room
     Input.sendMessage(socket)
     }).catch((err) => {
         console.error('Error getting rooms', err)
@@ -35,6 +38,7 @@ socket.on('general', (data) => {
     const date = new Date(data.date)
     const hour = date.getHours()
     const min = date.getMinutes()
+    //TODO: Fix the % sign showing up
     if (min < 10) {
         console.log(Colors.cyan,`${hour}:0${min} :`, Colors.yellowBgBlackLt,` ${data.name}`)
     } else {

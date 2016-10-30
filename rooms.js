@@ -1,13 +1,14 @@
 'use strict'
 
 const request = require('request-promise')
-const options = {
-    //uri: 'https://hacker-chatroom.herokuapp.com/rooms',
-    uri: 'http://localhost:3030/rooms',
-    method: 'GET'
-}
 
 const Rooms = (() => {
+    const options = {
+        //uri: 'https://hacker-chatroom.herokuapp.com/rooms',
+        uri: 'http://localhost:3030/rooms',
+        method: 'GET'
+    }
+
     return {
         getRooms: (socket) => {
             return new Promise((resolve, reject) => {

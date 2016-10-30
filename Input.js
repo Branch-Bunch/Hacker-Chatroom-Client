@@ -1,3 +1,5 @@
+'use strict'
+
 const readline = require('readline')
 
 const Input = (() => {
@@ -24,6 +26,7 @@ const Input = (() => {
     }
 
     function sendMessage(socket) {
+        // TODO: Find a method to keep > at bottom
         rl.question('>', (answer) => {
             if(answer === ':quit'){
                 rl.close
