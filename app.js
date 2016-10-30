@@ -3,10 +3,10 @@
 const io = require('socket.io-client')
 const Rooms  = require('./rooms.js')
 const Input = require('./input.js')
+const Colors = require('./color.js')
 
 const local = 'http://localhost:3030'
 const heroku = 'https://hacker-chatroom.herokuapp.com'
-const colors = require('./color.js')
 
 // For local testing: http:localhost:3030
 const socket = io.connect(local)
@@ -36,9 +36,9 @@ socket.on('general', (data) => {
     const hour = date.getHours()
     const min = date.getMinutes()
     if (min < 10) {
-        console.log(colors.Cyan,`${hour}:0${min} -`, colors.YellowBgBlackLt,` ${data.name}`)
+        console.log(Colors.cyan,`${hour}:0${min} :`, Colors.yellowBgBlackLt,` ${data.name}`)
     } else {
-        console.log(colors.Cyan,`${hour}:${min} -`, colors.YellowBgBlackLt, ` ${data.name}`)
+        console.log(Colors.cyan,`${hour}:${min} :`, Colors.yellowBgBlackLt, ` ${data.name}`)
     }
     console.log(`- ${data.message}`)
 })
