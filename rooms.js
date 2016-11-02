@@ -1,11 +1,13 @@
 'use strict'
 
+const Config = require('./config.js')
 const request = require('request-promise')
 
 const Rooms = (() => {
+	const local = `${Config.local}/rooms`
+	const heroku = `${Config.heroku}/rooms` 
     const options = {
-        //uri: 'https://hacker-chatroom.herokuapp.com/rooms',
-        uri: 'http://localhost:3030/rooms',
+        uri: local,
         method: 'GET'
     }
 
