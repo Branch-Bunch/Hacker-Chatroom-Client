@@ -1,14 +1,13 @@
 'use strict'
 
 const readline = require('readline')
-
 const Input = (() => {
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout
     });
     
-    let username = 'anonymous'
+    let username = 'anon' 
 
     function setName(socket) {
         rl.question('Enter username: ', (uname) => {
@@ -28,7 +27,7 @@ const Input = (() => {
     function sendMessage(socket) {
         // TODO: Find a method to keep > at bottom
         rl.question('>', (answer) => {
-            if(answer === ':quit'){
+            if(answer === ':q'){
                 rl.close
                 process.exit()
             }
