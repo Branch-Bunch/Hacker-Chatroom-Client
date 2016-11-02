@@ -44,5 +44,5 @@ socket.on('general', (data) => {
     } else {
         console.log(Colors.cyan,`${hour}:${min} :`, Colors.yellowBgBlackLt, ` ${data.name}`)
     }
-    console.log(`- ${data.message}`)
+    console.log(Colors.reset,`- ${data.message}`)
 })
