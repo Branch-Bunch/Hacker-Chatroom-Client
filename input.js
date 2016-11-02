@@ -11,7 +11,7 @@ const Input = (() => {
 
     function setName(socket) {
         rl.question('Enter username: ', (uname) => {
-            username = uname
+            username = uname.replace(/\s/g, '')
             rl.close
             sendMessage(socket)
         })
