@@ -10,7 +10,6 @@ const heroku = 'https://hacker-chatroom.herokuapp.com'
 
 // For local testing: http:localhost:3030
 const socket = io.connect(local)
-// const socket = io.connect('http://localhost:3030')
 
 // TODO: Enter username
 
@@ -24,6 +23,7 @@ socket.on('connect', (data) => {
             socket.emit('create', chatRooms[0])
         }
     // TODO: Select room or create room
+	Input.setName(socket)
     Input.sendMessage(socket)
     }).catch((err) => {
         console.log('Error getting rooms', err)
