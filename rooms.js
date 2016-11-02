@@ -4,8 +4,8 @@ const Config = require('./config.js')
 const request = require('request-promise')
 
 const Rooms = (() => {
-	let local = `${Config.local}/rooms`
-	let heroku = `${Config.heroku}/rooms` 
+	const local = `${Config.local}/rooms`
+	const heroku = `${Config.heroku}/rooms` 
     const options = {
         uri: local,
         method: 'GET'
