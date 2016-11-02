@@ -3,9 +3,10 @@
 const request = require('request-promise')
 
 const Rooms = (() => {
+	let local = 'http://localhost:3030/rooms'
+	let heroku = 'https://hacker-chatroom.herokuapp.com/rooms' 
     const options = {
-        //uri: 'https://hacker-chatroom.herokuapp.com/rooms',
-        uri: 'http://localhost:3030/rooms',
+        uri: local,
         method: 'GET'
     }
 
