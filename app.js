@@ -1,17 +1,12 @@
 'use strict'
 
 const io = require('socket.io-client')
+const Config = require('./config.js')
 const Rooms  = require('./rooms.js')
 const Input = require('./input.js')
 const Colors = require('./color.js')
 
-const local = 'http://localhost:3030'
-const heroku = 'https://hacker-chatroom.herokuapp.com'
-
-// For local testing: http:localhost:3030
-const socket = io.connect(local)
-
-// TODO: Enter username
+const socket = io.connect(Config.local)
 
 socket.on('connect', (data) => {
     console.log('Connected to Server')
