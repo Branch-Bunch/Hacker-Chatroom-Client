@@ -22,7 +22,12 @@ const Input = (() => {
         return new Promise((resolve, reject) => {
             rl.question('Enter room to join or create: ', (room) => {
                 rl.close
-                resolve(room)
+                resolve(
+                    room
+                        .trim()
+                        .toLowerCase()
+                        .replace(/\s/g, '-')
+               )
             })
         })
     }
