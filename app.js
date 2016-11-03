@@ -53,7 +53,7 @@ socket.on('chat', (data) => {
     } else {
         console.log(Colors.cyan,`${hour}:${min} :`, Colors.yellowBgBlackLt, ` ${data.name}`)
     }
-    console.log(`- ${data.message}`)
+    console.log(Colors.reset,`- ${data.message}`)
 })
 
 function listenForInput() {
