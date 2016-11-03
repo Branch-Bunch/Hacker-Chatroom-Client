@@ -10,6 +10,8 @@ const socket = io.connect(Config.heroku)
 
 let username = 'anonymous'
 
+let username = 'anonymous' 
+
 socket.on('connect', (data) => {
     console.log('Connected to Server')
 
@@ -66,7 +68,7 @@ function listenForInput() {
                 date: new Date(),
                 message: message
             })
-            listenForInput()
+			listenForInput() 
         })
         .catch((err) => {
             console.log('Error sending message', err)
