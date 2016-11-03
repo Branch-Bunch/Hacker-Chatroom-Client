@@ -19,12 +19,19 @@ socket.on('connect', (data) => {
             return Rooms.getRooms()
         })
         .then((chatRooms) => {
-           console.log('Available rooms:')
-           console.log(chatRooms)
-           return Input.setRoom()
+            console.log('Available rooms:')
+            if (chatRooms.length) {
+                chatRooms
+                    .forEach(room => console.log(`${room.name}: ${room.size} online`))
+            } else {
+                console.log('No current chat rooms, create your own.')
+            }
+        
+            return Input.setRoom()
         })
         .then((room) => {
             socket.emit('create', room)
+            console.log(`Joined room: ${room}`)
             listenForInput()
         })
         .catch((err) => {
@@ -36,7 +43,7 @@ socket.on('invalid', (error) => {
     console.log('error', error)
 })
 
-socket.on('general', (data) => {
+socket.on('chat', (data) => {
     const date = new Date(data.date)
     const hour = date.getHours()
     const min = date.getMinutes()
