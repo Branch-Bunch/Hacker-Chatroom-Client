@@ -8,21 +8,28 @@ const Colors = require('./color.js')
 
 const socket = io.connect(Config.local)
 
+let username = 'anonymous' 
+
 socket.on('connect', (data) => {
     console.log('Connected to Server')
-    Rooms.getRooms(socket).then((chatRooms) => {
-        console.log('Available rooms:')
-        console.log(chatRooms)
-        if (chatRooms.length === 1) {
-            console.log(`Joined ${chatRooms[0]}`)
-            socket.emit('create', chatRooms[0])
-        }
-    // TODO: Select room or create room
-	Input.setName(socket)
-    Input.sendMessage(socket)
-    }).catch((err) => {
-        console.log('Error getting rooms', err)
-    })
+
+    Input.setName()
+        .then((uname) => {
+            username = uname
+            return Rooms.getRooms()
+        })
+        .then((chatRooms) => {
+           console.log('Available rooms:')
+           console.log(chatRooms)
+           return Input.setRoom()
+        })
+        .then((room) => {
+            socket.emit('create', room)
+            listenForInput()
+        })
+        .catch((err) => {
+            console.log('Error getting rooms', err)
+        })
 })
 
 socket.on('invalid', (error) => {
@@ -41,3 +48,21 @@ socket.on('general', (data) => {
     }
     console.log(`- ${data.message}`)
 })
+
+function listenForInput() {
+    Input.setMessage()
+        .then((message) => {
+            if (message === ':q') {
+                process.exit()
+            }
+            socket.emit('chat', {
+                name: username,
+                date: new Date(),
+                message: message
+            })
+            listenForInput() 
+        })
+        .catch((err) => {
+            console.log('Error sending message', err)
+        })
+}
