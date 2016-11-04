@@ -49,11 +49,11 @@ socket.on('chat', (data) => {
     const min = date.getMinutes()
     //TODO: Fix the % sign showing up
     if (min < 10) {
-        process.stdout.write(Colors.cyan +`${hour}:0${min} : ` + Colors.reset + Colors.yellowBgBlackLt +`${data.name}` +Colors.reset +"\n")
+        process.stdout.write(Colors.cyan +`${hour}:0${min} : ` + Colors.reset + Colors.yellowBgBlackLt +`${data.name}` + Colors.reset +`\n`)
     } else {
-        process.stdout.write(Colors.cyan +`${hour}:${min} : ` + Colors.reset + Colors.yellowBgBlackLt +`${data.name}` +Colors.reset +"\n")
+        process.stdout.write(Colors.cyan +`${hour}:${min} : ` + Colors.reset + Colors.yellowBgBlackLt +`${data.name}` + Colors.reset +`\n`)
     }
-    console.log(Colors.reset,`- ${data.message}`)
+    console.log(`- ${data.message}`)
 })
 
 function listenForInput() {
