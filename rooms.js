@@ -5,11 +5,12 @@ const request = require('request-promise')
 
 const Rooms = (() => {
 	const local = `${Config.local}/rooms`
-	const heroku = `${Config.heroku}/rooms` 
+	const heroku = `${Config.heroku}/rooms`
     const options = {
-        uri: local,
+        uri: heroku,
         method: 'GET'
     }
+
 
     function getRooms() {
         return new Promise((resolve, reject) => {
@@ -19,6 +20,7 @@ const Rooms = (() => {
                 })
                 .catch((err) => {
                     reject(err)
+
                 })
         })
     }

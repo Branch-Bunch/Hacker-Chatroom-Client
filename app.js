@@ -6,9 +6,9 @@ const Rooms  = require('./rooms.js')
 const Input = require('./input.js')
 const Colors = require('./color.js')
 
-const socket = io.connect(Config.local)
+const socket = io.connect(Config.heroku)
 
-let username = 'anonymous' 
+let username = 'anonymous'
 
 socket.on('connect', (data) => {
     console.log('Connected to Server')
@@ -26,7 +26,7 @@ socket.on('connect', (data) => {
             } else {
                 console.log('No current chat rooms, create your own.')
             }
-        
+
             return Input.setRoom()
         })
         .then((room) => {
@@ -49,11 +49,11 @@ socket.on('chat', (data) => {
     const min = date.getMinutes()
     //TODO: Fix the % sign showing up
     if (min < 10) {
-        console.log(Colors.cyan,`${hour}:0${min} :`, Colors.yellowBgBlackLt,` ${data.name}`)
+        process.stdout.write(Colors.cyan +`${hour}:0${min} : ` + Colors.reset + Colors.yellowBgBlackLt +`${data.name}` + Colors.reset +`\n`)
     } else {
-        console.log(Colors.cyan,`${hour}:${min} :`, Colors.yellowBgBlackLt, ` ${data.name}`)
+        process.stdout.write(Colors.cyan +`${hour}:${min} : ` + Colors.reset + Colors.yellowBgBlackLt +`${data.name}` + Colors.reset +`\n`)
     }
-    console.log(Colors.reset,`- ${data.message}`)
+    console.log(`- ${data.message}`)
 })
 
 function listenForInput() {
@@ -67,7 +67,7 @@ function listenForInput() {
                 date: new Date(),
                 message: message
             })
-            listenForInput() 
+            listenForInput()
         })
         .catch((err) => {
             console.log('Error sending message', err)
