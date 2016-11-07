@@ -49,6 +49,11 @@ socket.on('chat', (data) => {
     const date = new Date(data.date)
     const hour = date.getHours()
     const min = date.getMinutes()
+<<<<<<< HEAD
+=======
+	console.log('\n')
+    //TODO: Fix the % sign showing up
+>>>>>>> fixed styling, still could improve it tho
     if (min < 10) {
         process.stdout.write(Colors.cyan +`${hour}:0${min} : ` + Colors.reset + Colors.yellowBgBlackLt +`${data.name}` + Colors.reset +`\n`)
     } else {
