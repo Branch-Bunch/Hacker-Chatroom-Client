@@ -54,6 +54,7 @@ socket.on('chat', (data) => {
         console.log(Colors.cyan,`${hour}:${min} :`, Colors.yellowBgBlackLt, ` ${data.name}`)
     }
     console.log(Colors.reset,`- ${data.message}`)
+	Input.resetCursor()
 })
 
 function listenForInput() {
