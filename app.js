@@ -8,8 +8,6 @@ const Colors = require('./color.js')
 
 const socket = io.connect(Config.heroku)
 
-let username = 'anonymous'
-
 let username = 'anonymous' 
 
 socket.on('connect', (data) => {
@@ -49,11 +47,8 @@ socket.on('chat', (data) => {
     const date = new Date(data.date)
     const hour = date.getHours()
     const min = date.getMinutes()
-<<<<<<< HEAD
-=======
-	console.log('\n')
+	console.log('')
     //TODO: Fix the % sign showing up
->>>>>>> fixed styling, still could improve it tho
     if (min < 10) {
         process.stdout.write(Colors.cyan +`${hour}:0${min} : ` + Colors.reset + Colors.yellowBgBlackLt +`${data.name}` + Colors.reset +`\n`)
     } else {
