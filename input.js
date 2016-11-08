@@ -32,8 +32,12 @@ const Input = (() => {
         })
     }
 
+	function resetCursor(){
+		readline.cursorTo(process.stdout, 0)
+		rl.prompt(true)
+	}
+
     function setMessage() {
-        // TODO: Find a method to keep > at bottom
         return new Promise((resolve, reject) => {
             rl.question('>', (message) => {
                 rl.close
@@ -43,6 +47,7 @@ const Input = (() => {
     }
 
     return {
+		resetCursor,
         setMessage,
         setRoom,
         setName
