@@ -22,11 +22,10 @@ const userConfig = Input.setName()
         } else {
             console.log('No current chat rooms, create your own.')
         }
-
         return Input.setRoom()
     })
     .catch((err) => {
-        console.log('Error getting rooms', err)
+        console.log('Error getting rooms: ', err)
     })
 
 socket.on('connect', (data) => {
@@ -35,27 +34,12 @@ socket.on('connect', (data) => {
             socket.emit('create', room)
             console.log(`Joined room: ${room}`)
 
-            Input.rl.on('line', (message) => {
-                if (message === ':q') {
-                    Input.rl.close()
-                    process.exit()
-                }
-                socket.emit('chat', {
-                    name: username,
-                    date: new Date(),
-                    message: message
-                })
-                Input.rl.prompt(true)
-            })
-            Input.rl.prompt(true)
+            Input.setMessage(messageHandler)
+            Input.setPrompt()
         })
         .catch((err) => {
-            console.log(`Error connecting to ${room}`, err)
+            console.log('Error connecting to room: ', err)
         })
-})
-
-socket.on('invalid', (error) => {
-    console.log('error', error)
 })
 
 socket.on('chat', (data) => {
@@ -70,6 +54,20 @@ socket.on('chat', (data) => {
         process.stdout.write(Colors.cyan +`${hour}:${min} : ` + Colors.reset + Colors.yellowBgBlackLt +`${data.name}` + Colors.reset +`\n`)
     }
     process.stdout.write(Colors.reset + `- ${data.message}` + `\n`)
-
-    Input.rl.prompt(true)
+    Input.setPrompt()
 })
+
+socket.on('invalid', (err) => {
+    console.log('Error invalid: ', err)
+})
+
+function messageHandler(message) {
+    if (message === ':q') {
+        process.exit()
+    }
+    socket.emit('chat', {
+        name: username,
+        date: new Date(),
+        message: message
+    })
+}

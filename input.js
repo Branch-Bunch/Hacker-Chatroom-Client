@@ -10,7 +10,6 @@ const Input = (() => {
     });
 
     rl.on('SIGINT', () => {
-        rl.close()
         process.exit()
     })
 
@@ -35,15 +34,26 @@ const Input = (() => {
         })
     }
 
+    function setPrompt() {
+        rl.prompt(true)
+    }
+
+    function setMessage(messageHandler) {
+        rl.on('line', (message) => {
+            messageHandler(message)
+        })
+    }
+
     function clearLine() {
         readline.clearLine()
         readline.cursorTo(process.stdout, 0)
     }
 
     return {
-        rl,
         setName,
         setRoom,
+        setPrompt,
+        setMessage,
         clearLine,
     }
 
