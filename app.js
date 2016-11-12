@@ -7,35 +7,50 @@ const Input = require('./input.js')
 const Colors = require('./color.js')
 
 const socket = io.connect(Config.heroku)
+let username = 'anonymous'
 
-let username = 'anonymous' 
+const userConfig = Input.setName()
+    .then((uname) => {
+        username = uname
+        return Rooms.getRooms()
+    })
+    .then((chatRooms) => {
+        console.log('Available rooms:')
+        if (chatRooms.length) {
+            chatRooms
+                .forEach(room => console.log(`${room.name}: ${room.size} online`))
+        } else {
+            console.log('No current chat rooms, create your own.')
+        }
+
+        return Input.setRoom()
+    })
+    .catch((err) => {
+        console.log('Error getting rooms', err)
+    })
 
 socket.on('connect', (data) => {
-    console.log('Connected to Server')
-
-    Input.setName()
-        .then((uname) => {
-            username = uname
-            return Rooms.getRooms()
-        })
-        .then((chatRooms) => {
-            console.log('Available rooms:')
-            if (chatRooms.length) {
-                chatRooms
-                    .forEach(room => console.log(`${room.name}: ${room.size} online`))
-            } else {
-                console.log('No current chat rooms, create your own.')
-            }
-
-            return Input.setRoom()
-        })
+    userConfig
         .then((room) => {
             socket.emit('create', room)
             console.log(`Joined room: ${room}`)
-            listenForInput()
+
+            Input.rl.on('line', (message) => {
+                if (message === ':q') {
+                    Input.rl.close()
+                    process.exit()
+                }
+                socket.emit('chat', {
+                    name: username,
+                    date: new Date(),
+                    message: message
+                })
+                Input.rl.prompt(true)
+            })
+            Input.rl.prompt(true)
         })
         .catch((err) => {
-            console.log('Error getting rooms', err)
+            console.log(`Error connecting to ${room}`, err)
         })
 })
 
@@ -47,31 +62,14 @@ socket.on('chat', (data) => {
     const date = new Date(data.date)
     const hour = date.getHours()
     const min = date.getMinutes()
-	console.log('')
-    //TODO: Fix the % sign showing up
+
+    Input.clearLine()
     if (min < 10) {
         process.stdout.write(Colors.cyan +`${hour}:0${min} : ` + Colors.reset + Colors.yellowBgBlackLt +`${data.name}` + Colors.reset +`\n`)
     } else {
         process.stdout.write(Colors.cyan +`${hour}:${min} : ` + Colors.reset + Colors.yellowBgBlackLt +`${data.name}` + Colors.reset +`\n`)
     }
-    console.log(Colors.reset,`- ${data.message}`)
-	Input.resetCursor()
-})
+    process.stdout.write(Colors.reset + `- ${data.message}` + `\n`)
 
-function listenForInput() {
-    Input.setMessage()
-        .then((message) => {
-            if (message === ':q') {
-                process.exit()
-            }
-            socket.emit('chat', {
-                name: username,
-                date: new Date(),
-                message: message
-            })
-			listenForInput() 
-        })
-        .catch((err) => {
-            console.log('Error sending message', err)
-        })
-}
+    Input.rl.prompt(true)
+})
