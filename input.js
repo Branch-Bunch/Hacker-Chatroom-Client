@@ -8,11 +8,15 @@ const Input = (() => {
         input: process.stdin,
         output: process.stdout
     });
-    
+
+    rl.on('SIGINT', () => {
+        rl.close()
+        process.exit()
+    })
+
     function setName() {
         return new Promise((resolve, reject) => {
             rl.question('Enter username: ', (uname) => {
-                rl.close
                 resolve(uname.replace(/\s/g, ''))
             })
         })
@@ -21,38 +25,28 @@ const Input = (() => {
     function setRoom() {
         return new Promise((resolve, reject) => {
             rl.question('Enter room to join or create: ', (room) => {
-                rl.close
                 resolve(
                     room
                         .trim()
                         .toLowerCase()
                         .replace(/\s/g, '-')
-               )
+                )
             })
         })
     }
 
-	function resetCursor(){
-		readline.cursorTo(process.stdout, 0)
-		rl.prompt(true)
-	}
-
-    function setMessage() {
-        return new Promise((resolve, reject) => {
-            rl.question('>', (message) => {
-                rl.close
-                resolve(message)
-            })
-        })
+    function clearLine() {
+        readline.clearLine()
+        readline.cursorTo(process.stdout, 0)
     }
 
     return {
-		resetCursor,
-        setMessage,
+        rl,
+        setName,
         setRoom,
-        setName
+        clearLine,
     }
-    
+
 })()
 
 module.exports = Input
