@@ -6,7 +6,7 @@ const Rooms  = require('./rooms.js')
 const Input = require('./input.js')
 const Colors = require('./color.js')
 
-const socket = io.connect(Config.heroku)
+const socket = io.connect(Config.serverURL)
 let username = 'anonymous'
 
 const userConfig = Input.setName()

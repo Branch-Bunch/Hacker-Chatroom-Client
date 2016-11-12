@@ -12,16 +12,9 @@ Everyone likes to feel `Hack3r Statu$` sometimes 😎.
     cd Hacker-Chatroom-Client
     npm install
     
-    # Make sure you're connecting to our server by changing the following variables
-
-    # In app.js socket to:
-    const socket = io.connect(Config.heroku)
-
-    # In room.js options to:
-    const options = {
-        uri: heroku,
-        method: 'GET'
-    }
+    # Make sure you're connecting to our server by changing the following variable
+    # In config.js
+    serverURL: 'https://hacker-chatroom.herokuapp.com'
     
     # Then run
     node app.js
@@ -29,6 +22,6 @@ Everyone likes to feel `Hack3r Statu$` sometimes 😎.
 ## Running Locally 
 
     # Head over to our server repo and clone and run it
-    # Make sure in app.js and rooms.js, you're connecting to the local server
+    # Make sure in config.js, you're connecting to the local server
     # Then run
     node app.js 
