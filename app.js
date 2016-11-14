@@ -4,7 +4,6 @@ const io = require('socket.io-client')
 const Config = require('./config.js')
 const Rooms  = require('./rooms.js')
 const Input = require('./input.js')
-//const Colors = require('./color.js')
 const color = require('ansi-color').set
 
 const socket = io.connect(Config.serverURL)
