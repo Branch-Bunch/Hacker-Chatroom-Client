@@ -49,11 +49,11 @@ socket.on('chat', (data) => {
 
     Input.clearLine()
     if (min < 10) {
-        process.stdout.write(color(`${hour}:0${min} : `, 'cyan'))
-		process.stdout.write(color(`${data.name}` + `\n`, 'yellow'))
+        process.stdout.write(color(`${hour}:0${min}: `, 'cyan+underline'))
+		process.stdout.write(color(`${data.name}` + `\n`, 'yellow+underline'))
     } else {
-        process.stdout.write(color(`${hour}:${min} : `, 'green'))
-		process.stdout.write(color(`${data.name}` + `\n`, 'yellow'))
+        process.stdout.write(color(`${hour}:${min}: `, 'green+underline'))
+		process.stdout.write(color(`${data.name}` + `\n`, 'yellow+underline'))
     }
 	//TODO: recive color from server based on who sent the message
     process.stdout.write(color(`- ${data.message}` + `\n`, 'blue+bold' ))
