@@ -4,7 +4,8 @@ const io = require('socket.io-client')
 const Config = require('./config.js')
 const Rooms  = require('./rooms.js')
 const Input = require('./input.js')
-const Colors = require('./color.js')
+//const Colors = require('./color.js')
+const color = require('ansi-color').set
 
 const socket = io.connect(Config.serverURL)
 let username = 'anonymous'
@@ -49,11 +50,14 @@ socket.on('chat', (data) => {
 
     Input.clearLine()
     if (min < 10) {
-        process.stdout.write(Colors.cyan +`${hour}:0${min} : ` + Colors.reset + Colors.yellowBgBlackLt +`${data.name}` + Colors.reset +`\n`)
+        process.stdout.write(color(`${hour}:0${min} : `, 'cyan'))
+		process.stdout.write(color(`${data.name}` + `\n`, 'yellow'))
     } else {
-        process.stdout.write(Colors.cyan +`${hour}:${min} : ` + Colors.reset + Colors.yellowBgBlackLt +`${data.name}` + Colors.reset +`\n`)
+        process.stdout.write(color(`${hour}:${min} : `, 'green'))
+		procces.stdout.write(color(`${data.name}` + `\n`, 'yellow'))
     }
-    process.stdout.write(Colors.reset + `- ${data.message}` + `\n`)
+	//TODO: recive color from server based on who sent the message
+    process.stdout.write(color(`- ${data.message}` + `\n`, 'blue+bold' ))
     Input.setPrompt()
 })
 
