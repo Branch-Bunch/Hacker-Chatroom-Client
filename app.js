@@ -53,7 +53,7 @@ socket.on('chat', (data) => {
 		process.stdout.write(color(`${data.name}` + `\n`, 'yellow'))
     } else {
         process.stdout.write(color(`${hour}:${min} : `, 'green'))
-		procces.stdout.write(color(`${data.name}` + `\n`, 'yellow'))
+		process.stdout.write(color(`${data.name}` + `\n`, 'yellow'))
     }
 	//TODO: recive color from server based on who sent the message
     process.stdout.write(color(`- ${data.message}` + `\n`, 'blue+bold' ))
