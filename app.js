@@ -31,7 +31,7 @@ const userConfig = Input.setName()
 socket.on('connect', (data) => {
     userConfig
         .then((room) => {
-            socket.emit('create', room)
+            socket.emit('join-room', room, username)
             console.log(`Joined room: ${room}`)
 
             Input.setMessage(messageHandler)
@@ -63,6 +63,7 @@ socket.on('invalid', (err) => {
 
 function messageHandler(message) {
     if (message === ':q') {
+        socket.emit('leave-room', username)
         process.exit()
     }
     socket.emit('chat', {
@@ -71,3 +72,11 @@ function messageHandler(message) {
         message: message
     })
 }
+
+socket.on('leave-room', (data) => {
+    console.log(data)
+})
+
+socket.on('join-room', (data) => {
+    console.log(data)
+})
