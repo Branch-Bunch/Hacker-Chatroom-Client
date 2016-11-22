@@ -63,8 +63,8 @@ socket.on('invalid', (err) => {
 
 function messageHandler(message) {
     if (message === ':q') {
-        process.exit()
         socket.emit('leave-room', username)
+        process.exit()
     }
     socket.emit('chat', {
         name: username,
