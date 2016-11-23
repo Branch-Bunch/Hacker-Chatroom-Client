@@ -40,13 +40,13 @@ const Input = (() => {
 
     function setMessage(messageHandler) {
         rl.on('line', (message) => {
-            messageHandler(message)
+		messageHandler(message)
         })
     }
 
     function clearLine() {
-        readline.clearLine()
-        readline.cursorTo(process.stdout, 0)
+	readline.clearLine(process.stdout, 0)
+	readline.cursorTo(process.stdout, 0)
     }
 
     return {
