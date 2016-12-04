@@ -8,7 +8,7 @@ Everyone likes to feel `Hack3r Statu$` sometimes 😎.
 
 ## Clone and Run
 
-    git clone https://github.com/Hacker-Chatroom/Hacker-Chatroom-Client.git 
+    git clone https://github.com/Branch-Bunch/Hacker-Chatroom-Client.git 
     cd Hacker-Chatroom-Client
     npm install
     
@@ -17,11 +17,11 @@ Everyone likes to feel `Hack3r Statu$` sometimes 😎.
     serverURL: 'https://hacker-chatroom.herokuapp.com'
     
     # Then run
-    node app.js
+    npm start
 
 ## Running Locally 
 
     # Head over to our server repo and clone and run it
     # Make sure in config.js, you're connecting to the local server
     # Then run
-    node app.js 
+    npm start 
