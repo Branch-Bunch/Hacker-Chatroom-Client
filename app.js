@@ -46,14 +46,10 @@ socket.on('chat', (data) => {
     const date = new Date(data.date)
     const hour = date.getHours()
     const min = date.getMinutes()
+    const pad = min < 10 ? `0` : ``
 
     Input.clearLine()
-    if (min < 10) {
-        process.stdout.write(color(`${hour}:0${min}: `, 'cyan+underline'))
-    } 
-	else {
-        process.stdout.write(color(`${hour}:${min}: `, 'green+underline'))
-    }
+    process.stdout.write(color(`${hour}:${pad}${min}: `, 'cyan+underline'))
 	//TODO: recive color from server based on who sent the message
 	process.stdout.write(color(`${data.name}` + `\n`, 'yellow+underline'))
 	process.stdout.write(color(`- ${data.message}` + `\n`, 'blue+bold' ))
