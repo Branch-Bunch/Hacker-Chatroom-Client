@@ -9,6 +9,7 @@ const color = require('ansi-color').set
 const socket = io.connect(Config.serverURL)
 let username = 'anonymous'
 
+// User config on startup
 const userConfig = Input.setName()
     .then((uname) => {
         username = uname
@@ -28,6 +29,7 @@ const userConfig = Input.setName()
         console.log('Error getting rooms: ', err)
     })
 
+// Socket events
 socket.on('connect', (data) => {
     userConfig
         .then((room) => {
@@ -48,18 +50,29 @@ socket.on('chat', (data) => {
     const min = date.getMinutes()
     const pad = min < 10 ? `0` : ``
 
-    Input.clearLine()
-    process.stdout.write(color(`${hour}:${pad}${min}: `, 'cyan+underline'))
 	//TODO: recive color from server based on who sent the message
-	process.stdout.write(color(`${data.name}` + `\n`, 'yellow+underline'))
-	process.stdout.write(color(`- ${data.message}` + `\n`, 'blue+bold' ))
-    Input.setPrompt()
+    print(
+        color(`${hour}:${pad}${min}:`, 'cyan+underline'),
+        ' ',
+        color(`${data.name}\n`, 'yellow+underline'),
+        color(`- ${data.message}\n`, 'blue+bold' )
+    )
 })
 
 socket.on('invalid', (err) => {
     console.log('Error invalid: ', err)
 })
 
+// TODO: Put the join and leave messages on client to use colour
+socket.on('leave-room', (data) => {
+    print(`${data}\n`)
+})
+
+socket.on('join-room', (data) => {
+    print(`${data}\n`)
+})
+
+// Helper functions
 function messageHandler(message) {
     if (message === ':q') {
         socket.emit('leave-room', username)
@@ -72,10 +85,8 @@ function messageHandler(message) {
     })
 }
 
-socket.on('leave-room', (data) => {
-    console.log(data)
-})
-
-socket.on('join-room', (data) => {
-    console.log(data)
-})
+function print(...data) {
+    Input.clearLine()
+    data.forEach(line => { process.stdout.write(line) }) 
+    Input.setPrompt()
+}
