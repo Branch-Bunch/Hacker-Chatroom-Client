@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Hacker-Chatroom/Hacker-Chatroom-Client.git"
+    "url": "git+https://github.com/Branch-Bunch/Hacker-Chatroom-Client.git"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Hacker-Chatroom/Hacker-Chatroom-Client/issues"
+    "url": "https://github.com/Branch-Bunch/Hacker-Chatroom-Client/issues"
   },
-  "homepage": "https://github.com/Hacker-Chatroom/Hacker-Chatroom-Client#readme",
+  "homepage": "https://github.com/Branch-Bunch/Hacker-Chatroom-Client#readme",
   "dependencies": {
     "ansi-color": "^0.2.1",
     "request-promise": "^4.1.1",

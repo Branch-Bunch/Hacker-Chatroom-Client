@@ -9,10 +9,6 @@ const Input = (() => {
         output: process.stdout
     });
 
-    rl.on('SIGINT', () => {
-        process.exit()
-    })
-
     function setName() {
         return new Promise((resolve, reject) => {
             rl.question('Enter username: ', (uname) => {
@@ -40,13 +36,19 @@ const Input = (() => {
 
     function setMessage(messageHandler) {
         rl.on('line', (message) => {
-		messageHandler(message)
+            messageHandler(message)
+        })
+    }
+
+    function setLeave(leaveHandler) {
+        rl.on('SIGINT', () => {
+            leaveHandler() 
         })
     }
 
     function clearLine() {
-	readline.clearLine(process.stdout, 0)
-	readline.cursorTo(process.stdout, 0)
+        readline.clearLine(process.stdout, 0)
+        readline.cursorTo(process.stdout, 0)
     }
 
     return {
@@ -54,6 +56,7 @@ const Input = (() => {
         setRoom,
         setPrompt,
         setMessage,
+        setLeave,
         clearLine,
     }
 

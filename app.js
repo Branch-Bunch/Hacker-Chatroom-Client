@@ -37,6 +37,7 @@ socket.on('connect', (data) => {
             console.log(`Joined room: ${room}`)
 
             Input.setMessage(messageHandler)
+            Input.setLeave(leaveHandler)
             Input.setPrompt()
         })
         .catch((err) => {
@@ -75,14 +76,18 @@ socket.on('join-room', (data) => {
 // Helper functions
 function messageHandler(message) {
     if (message === ':q') {
-        socket.emit('leave-room', username)
-        process.exit()
+        leaveHandler()
     }
     socket.emit('chat', {
         name: username,
         date: new Date(),
         message: message
     })
+}
+
+function leaveHandler() {
+    socket.emit('leave-room', username)
+    process.exit()
 }
 
 function print(...data) {
