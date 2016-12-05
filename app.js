@@ -7,42 +7,29 @@ const Input = require('./input.js')
 const color = require('ansi-color').set
 
 const socket = io.connect(Config.serverURL)
-let username = 'anonymous'
 
 // User config on startup
+let username = 'anonymous'
 const userConfig = Input.setName()
     .then((uname) => {
         username = uname
-        return Rooms.getRooms()
+        return getAndPrintRooms()
     })
-    .then((chatRooms) => {
-        console.log('Available rooms:')
-        if (chatRooms.length) {
-            chatRooms
-                .forEach(room => console.log(`${room.name}: ${room.size} online`))
-        } else {
-            console.log('No current chat rooms, create your own.')
-        }
+    .then(() => {
         return Input.setRoom()
     })
-    .catch((err) => {
-        console.log('Error getting rooms: ', err)
-    })
+    .catch((err) => console.log('Error getting rooms: ', err))
 
 // Socket events
 socket.on('connect', (data) => {
     userConfig
         .then((room) => {
-            socket.emit('join-room', room, username)
-            console.log(`Joined room: ${room}`)
-
+            joinHandler(room)
             Input.setMessage(messageHandler)
             Input.setLeave(leaveHandler)
             Input.setPrompt()
         })
-        .catch((err) => {
-            console.log('Error connecting to room: ', err)
-        })
+        .catch((err) => console.log('Error connecting to room: ', err))
 })
 
 socket.on('chat', (data) => {
@@ -73,21 +60,77 @@ socket.on('join-room', (data) => {
     print(`${data}\n`)
 })
 
-// Helper functions
+// Event handlers
 function messageHandler(message) {
-    if (message === ':q') {
-        leaveHandler()
+    switch (message) {
+        case ':q':
+            leaveHandler()
+            break
+
+        case ':cr': 
+            socket.emit('leave-room', username)
+            console.log('Left room')
+            getAndPrintRooms()
+                .then(() => {
+                    return Input.setRoom()
+                })
+                .then((room) => {
+                    joinHandler(room)
+                    Input.setPrompt()
+                })
+                .catch((err) => console.log('Error getting rooms: ', err))
+            break
+
+        case ':gr':
+            getAndPrintRooms()
+            Input.setPrompt()
+            break
+
+        case ':help':
+            console.log(':q  - Quit')
+            console.log(':cr - Change room')
+            console.log(':gr - Get rooms')
+            Input.setPrompt()
+            break
+
+        default:
+             socket.emit('chat', {
+                name: username,
+                date: new Date(),
+                message: message
+            })
     }
-    socket.emit('chat', {
-        name: username,
-        date: new Date(),
-        message: message
-    })
 }
 
 function leaveHandler() {
     socket.emit('leave-room', username)
     process.exit()
+}
+
+function joinHandler(room) {
+    socket.emit('join-room', room, username)
+    console.log(`Joined room: ${room}`)
+    console.log('Type ":" and tab for help and options')
+}
+
+// Helper functions
+function getAndPrintRooms() {
+    return Rooms.getRooms()
+        .then((rooms) => {
+            printAvailableRooms(rooms)
+        })
+        .catch((err) => console.log('Error getting rooms: ', err))
+}
+
+function printAvailableRooms(rooms) {
+    console.log('\nAvailable rooms:')
+    if (rooms.length) {
+        rooms
+            .forEach(room => console.log(`${room.name}: ${room.size} online`))
+    } else {
+        console.log('No current chat rooms, create your own.')
+    }
+    console.log()
 }
 
 function print(...data) {
