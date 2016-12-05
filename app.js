@@ -83,7 +83,9 @@ function messageHandler(message) {
 
         case ':gr':
             getAndPrintRooms()
-            Input.setPrompt()
+                .then(() => {
+                    Input.setPrompt()
+                })
             break
 
         case ':help':

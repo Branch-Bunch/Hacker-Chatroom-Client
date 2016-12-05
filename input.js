@@ -7,7 +7,7 @@ const Input = (() => {
     const rl = readline.createInterface({
         completer,
         input: process.stdin,
-        output: process.stdout,
+        output: process.stdout
     });
 
     function completer(line) {
@@ -64,7 +64,7 @@ const Input = (() => {
         setPrompt,
         setMessage,
         setLeave,
-        clearLine,
+        clearLine
     }
 
 })()
