@@ -5,9 +5,16 @@ const readline = require('readline')
 const Input = (() => {
 
     const rl = readline.createInterface({
+        completer,
         input: process.stdin,
-        output: process.stdout
+        output: process.stdout,
     });
+
+    function completer(line) {
+        const completions = ':help :q :cr :gr'.split(' ')
+        const hits = completions.filter(c => c.indexOf(line) === 0)
+        return [hits.length ? hits : completions, line]
+    }
 
     function setName() {
         return new Promise((resolve, reject) => {
@@ -42,7 +49,7 @@ const Input = (() => {
 
     function setLeave(leaveHandler) {
         rl.on('SIGINT', () => {
-            leaveHandler() 
+            leaveHandler()
         })
     }
 
