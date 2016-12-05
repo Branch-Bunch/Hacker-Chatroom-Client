@@ -5,13 +5,16 @@ const readline = require('readline')
 const Input = (() => {
 
     const rl = readline.createInterface({
+        completer,
         input: process.stdin,
         output: process.stdout
     });
 
-    rl.on('SIGINT', () => {
-        process.exit()
-    })
+    function completer(line) {
+        const completions = ':help :q :cr :gr'.split(' ')
+        const hits = completions.filter(c => c.indexOf(line) === 0)
+        return [hits.length ? hits : completions, line]
+    }
 
     function setName() {
         return new Promise((resolve, reject) => {
@@ -40,13 +43,19 @@ const Input = (() => {
 
     function setMessage(messageHandler) {
         rl.on('line', (message) => {
-		messageHandler(message)
+            messageHandler(message)
+        })
+    }
+
+    function setLeave(leaveHandler) {
+        rl.on('SIGINT', () => {
+            leaveHandler()
         })
     }
 
     function clearLine() {
-	readline.clearLine(process.stdout, 0)
-	readline.cursorTo(process.stdout, 0)
+        readline.clearLine(process.stdout, 0)
+        readline.cursorTo(process.stdout, 0)
     }
 
     return {
@@ -54,7 +63,8 @@ const Input = (() => {
         setRoom,
         setPrompt,
         setMessage,
-        clearLine,
+        setLeave,
+        clearLine
     }
 
 })()
