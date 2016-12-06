@@ -105,7 +105,6 @@ function messageHandler(message) {
                 date: new Date(),
                 message: message
             })
-            break
         }
     }
 }
