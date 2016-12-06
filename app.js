@@ -26,7 +26,7 @@ socket.on('connect', (data) => {
         .then((room) => {
             joinHandler(room)
             Input.setMessage(messageHandler)
-            Input.setLeave(leaveHandler)
+            Input.setQuit(quitHandler)
             Input.setPrompt()
         })
         .catch((err) => console.log('Error connecting to room: ', err))
@@ -63,11 +63,12 @@ socket.on('join-room', (data) => {
 // Event handlers
 function messageHandler(message) {
     switch (message) {
-        case ':q':
-            leaveHandler()
+        case ':q': {
+            quitHandler()
             break
+        }
 
-        case ':cr': 
+        case ':cr': {
             socket.emit('leave-room', username)
             console.log('Left room')
             getAndPrintRooms()
@@ -80,31 +81,36 @@ function messageHandler(message) {
                 })
                 .catch((err) => console.log('Error getting rooms: ', err))
             break
+        }
 
-        case ':gr':
+        case ':gr': {
             getAndPrintRooms()
                 .then(() => {
                     Input.setPrompt()
                 })
             break
+        }
 
-        case ':help':
+        case ':help': {
             console.log(':q  - Quit')
             console.log(':cr - Change room')
             console.log(':gr - Get rooms')
             Input.setPrompt()
             break
+        }
 
-        default:
+        default: {
              socket.emit('chat', {
                 name: username,
                 date: new Date(),
                 message: message
             })
+            break
+        }
     }
 }
 
-function leaveHandler() {
+function quitHandler() {
     socket.emit('leave-room', username)
     process.exit()
 }

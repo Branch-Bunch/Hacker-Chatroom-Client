@@ -47,9 +47,9 @@ const Input = (() => {
         })
     }
 
-    function setLeave(leaveHandler) {
+    function setQuit(quitHandler) {
         rl.on('SIGINT', () => {
-            leaveHandler()
+            quitHandler()
         })
     }
 
@@ -63,7 +63,7 @@ const Input = (() => {
         setRoom,
         setPrompt,
         setMessage,
-        setLeave,
+        setQuit,
         clearLine
     }
 
