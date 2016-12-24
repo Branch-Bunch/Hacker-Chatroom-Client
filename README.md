@@ -6,7 +6,12 @@ Hacker Chatroom is a messaging service we created to be able to chat in a termin
 ## Why?
 Everyone likes to feel `Hack3r Statu$` sometimes 😎.
 
-## Clone and Run
+## Try it out!
+
+    npm install -g hacker-chatroom
+    hacker-chatroom
+
+## Development: Clone and Run
 
     git clone https://github.com/Branch-Bunch/Hacker-Chatroom-Client.git 
     cd Hacker-Chatroom-Client
