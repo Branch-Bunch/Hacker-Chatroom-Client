@@ -1,4 +1,5 @@
 #! /usr/bin/env node
+
 'use strict'
 
 const io = require('socket.io-client')

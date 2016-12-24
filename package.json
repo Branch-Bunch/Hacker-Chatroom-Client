@@ -1,6 +1,6 @@
 {
   "name": "hacker-chatroom",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "",
   "main": "app.js",
   "bin": "./app.js",
