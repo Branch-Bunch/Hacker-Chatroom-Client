@@ -1,6 +1,6 @@
 {
   "name": "hacker-chatroom",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "app.js",
   "bin": "./app.js",
@@ -11,7 +11,13 @@
     "type": "git",
     "url": "git+https://github.com/Branch-Bunch/Hacker-Chatroom-Client.git"
   },
-  "keywords": ["hacker", "chatroom", "hack", "chat", "terminal"],
+  "keywords": [
+    "hacker",
+    "chatroom",
+    "hack",
+    "chat",
+    "terminal"
+  ],
   "author": "",
   "license": "MIT",
   "bugs": {
