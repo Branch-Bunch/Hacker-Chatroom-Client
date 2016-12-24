@@ -1,7 +1,7 @@
 {
   "name": "hacker-chatroom",
-  "version": "1.0.4",
-  "description": "",
+  "version": "1.0.5",
+  "description": "Terminal based chatroom client",
   "main": "app.js",
   "bin": "./app.js",
   "scripts": {
