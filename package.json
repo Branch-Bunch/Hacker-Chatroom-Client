@@ -1,17 +1,16 @@
 {
-  "name": "Hacker-Chatroom-Client",
+  "name": "hacker-chatroom",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Branch-Bunch/Hacker-Chatroom-Client.git"
   },
-  "keywords": [],
+  "keywords": ["hacker", "chatroom", "hack", "chat", "terminal"],
   "author": "",
   "license": "MIT",
   "bugs": {
