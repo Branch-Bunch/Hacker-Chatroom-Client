@@ -1,6 +1,6 @@
 {
   "name": "hacker-chatroom",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Terminal based chatroom client",
   "main": "app.js",
   "bin": "./app.js",
@@ -26,6 +26,7 @@
   "homepage": "https://github.com/Branch-Bunch/Hacker-Chatroom-Client#readme",
   "dependencies": {
     "ansi-color": "^0.2.1",
+    "request": "^2.79.0",
     "request-promise": "^4.1.1",
     "socket.io-client": "^1.5.1"
   }
