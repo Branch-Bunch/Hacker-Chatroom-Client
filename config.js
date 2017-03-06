@@ -1,5 +1,3 @@
-'use strict'
-
 const Config = {
     // For local testing use the localhost
     //serverURL: 'http://localhost:3030'

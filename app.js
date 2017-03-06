@@ -1,7 +1,5 @@
 #! /usr/bin/env node
 
-'use strict'
-
 const io = require('socket.io-client')
 const Config = require('./config.js')
 const Rooms  = require('./rooms.js')
